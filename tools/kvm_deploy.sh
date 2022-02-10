@@ -136,7 +136,7 @@ for ((k=0; k<CNT; k++)); do
     --vcpus 4 \
     --memory 16384 \
     --os-type linux \
-    --os-variant ubuntu18.04 \
+    --os-variant ubuntu20.04 \
     --virt-type kvm \
     --graphics none \
     --noautoconsole \
