@@ -5,7 +5,8 @@
 #
 # Summary: zeta_dev base container for development and dev test
 
-FROM ubuntu:18.04@sha256:646942475da61b4ce9cc5b3fadb42642ea90e5d0de46111458e100ff2c7031e6
+#FROM ubuntu:18.04@sha256:646942475da61b4ce9cc5b3fadb42642ea90e5d0de46111458e100ff2c7031e6
+FROM ubuntu:20.04
 
 RUN apt-get update && \
     apt-get install -y apt-transport-https ca-certificates gnupg software-properties-common wget && \
@@ -65,10 +66,10 @@ RUN apt-get update && \
     libtool && \
     apt-get clean
 
-RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 10 \
-    && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 20 \
-    && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 10 \
-    && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 20
+RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 10 \
+#    && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 20 \
+#    && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 10 \
+    && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 10
 
 RUN pip3 install httpserver netaddr grpcio grpcio-tools flask
 

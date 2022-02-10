@@ -109,7 +109,6 @@ set(C_FLAGS "-I. \
   -Wall \
   -Wextra \
   -Werror \
-  -pedantic -Wpedantic \
   -Wno-cast-function-type -Wno-error=cast-function-type \
   -fno-common \
   -fstrict-aliasing")

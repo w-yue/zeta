@@ -94,8 +94,9 @@ def droplet_update_itf_config(node_ip, droplet):
     for idx, ip in enumerate(ips):
         entrance = {'ip': ip, 'mac': macs[idx]}
         entrances.append(entrance)
+        itf = droplet.get('spec',{}).get('itf')
     itf_conf = {
-        'interface': droplet['spec']['itf'],
+        'interface': itf,
         'num_entrances': len(ips),
         'entrances': entrances
     }
@@ -158,6 +159,7 @@ def all_nodes():
                     droplet_that_can_give_ip_mac.append(droplet)
             number_of_droplets = len(all_droplets_in_zgc)
             number_of_ip_new_droplet_gets = total_ip // (number_of_droplets + 1) 
+            logger.info('number of ip new droplets gets {}'.format(number_of_ip_new_droplet_gets))
             ip_for_new_droplet = []
             modified_droplets = dict()
             if number_of_ip_new_droplet_gets > 0 : # each droplet should have 1 or more ip, assign ip / mac from existing droplets

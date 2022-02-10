@@ -55,16 +55,22 @@ else
     echo "All dependencies look good. (${FOUND})"
 fi
 
-echo "========= Step 2: Download ubuntu 18.08LTS cloud image if not here ..."
+echo "========= Step 2: Download ubuntu 20.04LTS cloud image if not here ..."
 IMG_PATH="/var/lib/libvirt/images"
-BASE_IMG="$IMG_PATH/bionic-server-cloudimg-amd64.img"
+#BASE_IMG="$IMG_PATH/bionic-server-cloudimg-amd64.img"
+BASE_IMG="$IMG_PATH/focal-server-cloudimg-amd64.img"
 
 if [ ! -f "$BASE_IMG" ]; then
-    wget "${_PROTO:-https}://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-amd64.img"
-    # Resize the disk to 20G
-    qemu-img resize bionic-server-cloudimg-amd64.img 20G
-    # Make sure it's qcow2 format before put into location as base image
-    qemu-img convert -f qcow2 -O qcow2 bionic-server-cloudimg-amd64.img $BASE_IMG
+#    wget "${_PROTO:-https}://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-amd64.img"
+#    # Resize the disk to 60G
+#    qemu-img resize bionic-server-cloudimg-amd64.img 60G
+    wget "${_PROTO:-https}://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.img"
+    # Resize the disk to 64G
+    qemu-img resize focal-server-cloudimg-amd64.img 64G
+
+# Make sure it's qcow2 format before put into location as base image
+    #qemu-img convert -f qcow2 -O qcow2 bionic-server-cloudimg-amd64.img $BASE_IMG
+    qemu-img convert -f qcow2 -O qcow2 focal-server-cloudimg-amd64.img $BASE_IMG
 fi
 
 echo "========= Step 3: Clean up old deployment ..."
@@ -128,7 +134,7 @@ echo "========= Step 6: Deploy ZGC node VMs ..."
 for ((k=0; k<CNT; k++)); do
     virt-install \
     --vcpus 4 \
-    --memory 8192 \
+    --memory 16384 \
     --os-type linux \
     --os-variant ubuntu18.04 \
     --virt-type kvm \

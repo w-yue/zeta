@@ -3,17 +3,13 @@
 
 # Authors: Phu Tran          <@phudtran>
 
-apiVersion: apiextensions.k8s.io/v1beta1
+apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   name: ftns.zeta.com
 spec:
   scope: Namespaced
   group: zeta.com
-  versions:
-    - name: v1
-      served: true
-      storage: true
   names:
     kind: Ftn
     plural: ftns
@@ -21,38 +17,51 @@ spec:
     shortNames:
       - ftn
       - ftns
-  additionalPrinterColumns:
-    - name: Status
-      type: string
-      priority: 0
-      JSONPath: .spec.status
-    - name: Dft
-      type: string
-      priority: 0
-      JSONPath: .spec.dft
-      description: The DFT that this FTN belongs to
-    - name: Droplet
-      type: string
-      priority: 0
-      JSONPath: .spec.droplet
-      description: The droplet where this ftn is deployed
-    - name: Parentchain
-      type: string
-      priority: 0
-      JSONPath: .spec.parentchain
-      description: The parent chain of this ftn
-    - name: Augmentedchain
-      type: string
-      priority: 0
-      JSONPath: .spec.augmentedchain
-      description: The chain this ftn is augmented onto
-    - name: CreateTime
-      type: string
-      priority: 0
-      JSONPath: .spec.createtime
-      description: Time the object is created
-    - name: ProvisionDelay
-      type: string
-      priority: 0
-      JSONPath: .spec.provisiondelay
-      description: Time to provision an object from creation
+  versions:
+    - name: v1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          x-kubernetes-preserve-unknown-fields: true
+          properties:
+            ftns:
+              type: array
+              items:
+                type: string
+      additionalPrinterColumns:
+        - name: Status
+          type: string
+          priority: 0
+          jsonPath: .spec.status
+        - name: Dft
+          type: string
+          priority: 0
+          jsonPath: .spec.dft
+          description: The DFT that this FTN belongs to
+        - name: Droplet
+          type: string
+          priority: 0
+          jsonPath: .spec.droplet
+          description: The droplet where this ftn is deployed
+        - name: Parentchain
+          type: string
+          priority: 0
+          jsonPath: .spec.parentchain
+          description: The parent chain of this ftn
+        - name: Augmentedchain
+          type: string
+          priority: 0
+          jsonPath: .spec.augmentedchain
+          description: The chain this ftn is augmented onto
+        - name: CreateTime
+          type: string
+          priority: 0
+          jsonPath: .spec.createtime
+          description: Time the object is created
+        - name: ProvisionDelay
+          type: string
+          priority: 0
+          jsonPath: .spec.provisiondelay
+          description: Time to provision an object from creation

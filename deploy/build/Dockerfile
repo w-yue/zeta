@@ -5,7 +5,8 @@
 #
 # Summary: Customize zeta_dev container for local build environments
 
-FROM fwnetworking/zeta_dev:latest
+#FROM fwnetworking/zeta_dev:latest
+FROM wyue/zeta_dev:latest
 
 # Set container user to match host $USER to avoid messing up shared folders
 ARG USER_NAME
