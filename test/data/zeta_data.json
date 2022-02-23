@@ -125,5 +125,5 @@
       "mac_zgc": "52:54:00:3e:6c:e8"
     }
   ],
-  "use_preferred_gw": true
+  "use_preferred_gw": "ip_address_of_the_gw_or_null"
 }

@@ -191,11 +191,11 @@ def talk_to_zeta(file_path, zgc_api_url, zeta_data, port_api_upper_limit, time_i
     print(
         f'Amount of ports to send to aca: {len(json_content_for_aca["port_response"])}')
 
-    if use_preferred_gw :
+    if use_preferred_gw is not None:
         original_vpc_response_json = json_content_for_aca['vpc_response']
         original_gws_json = original_vpc_response_json["gws"]
         # The first element will be the preferred gateway.
-        preferred_gws_json = original_gws_json[:1]
+        preferred_gws_json = [each_gw for each_gw in original_gws_json  if (each_gw["ip"] == use_preferred_gw) ]
         print(f'We use prefered gateway in this test, so the ports generated will send traffic ONLY to this ZGC node with IP: {preferred_gws_json[0]["ip"]} and MAC: {preferred_gws_json[0]["mac"]}')
         json_content_for_aca['vpc_response']["gws"] = preferred_gws_json
 
